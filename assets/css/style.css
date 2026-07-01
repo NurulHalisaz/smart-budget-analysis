@@ -1,0 +1,255 @@
+/* assets/css/style.css */
+
+/* Using a modern Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for consistent theming and easy adjustments */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #6b7280;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --sidebar-width: 260px;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* =========================================
+   Sidebar Styles
+   ========================================= */
+.sidebar {
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h4 {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-link i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color);
+    background-color: #f1f5f9;
+    border-left: 3px solid var(--primary-color);
+}
+
+.nav-link.text-danger:hover {
+    color: #ef4444 !important;
+    background-color: #fef2f2;
+    border-left: 3px solid #ef4444;
+}
+
+/* =========================================
+   Main Content Styles
+   ========================================= */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   Navbar Styles
+   ========================================= */
+.top-navbar {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin-bottom: 24px;
+}
+
+/* =========================================
+   Card Styles
+   ========================================= */
+.card {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    background-color: var(--card-bg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================
+   Footer Styles
+   ========================================= */
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 24px 0 0 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* =========================================
+   Responsive Design
+   ========================================= */
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: calc(-1 * var(--sidebar-width));
+    }
+    .sidebar.show {
+        margin-left: 0;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    }
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* =========================================
+   Animations & Polish
+   ========================================= */
+
+/* Smooth Fade In for Page Load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Stagger card animations slightly on dashboard */
+.card {
+    animation: fadeIn 0.5s ease-out backwards;
+}
+.row > div:nth-child(1) .card { animation-delay: 0.1s; }
+.row > div:nth-child(2) .card { animation-delay: 0.15s; }
+.row > div:nth-child(3) .card { animation-delay: 0.2s; }
+.row > div:nth-child(4) .card { animation-delay: 0.25s; }
+
+/* Custom Scrollbar for tables on desktop */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Button Loading State Spinner */
+.btn-is-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn-is-loading::after {
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: calc(50% - 0.5rem);
+    left: calc(50% - 0.5rem);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   Dashboard Styles
+========================================= */
+
+.bg-orange{
+    background-color:#fd7e14 !important;
+}
+
+.text-orange{
+    color:#fd7e14 !important;
+}
+
+/* Dashboard Icons */
+.dashboard-icon{
+    width:48px;
+    height:48px;
+}
+
+/* Budget Progress */
+.budget-progress{
+    height:16px;
+    border-radius:10px;
+}
+
+/* Chart */
+.chart-container{
+    height:300px;
+}
+
+.chart-center{
+    height:300px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
